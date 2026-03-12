@@ -13,12 +13,14 @@ Responsible for ensuring data is prepped and ready to be implemented in the mode
 #### Aadhya (Modeler)
 Responsible for implementation of machine learning models, visualizations, and summary statistics in order to analyze player trends and statistics.
 
-## Research Questions
-1) What is the relationship between at bats and home runs after controlling for doubles, triples, and games played, both in my sample and in the underlying population? How does my model perform on new data? 
+## Research Questions 
 
-2) How do at bats, games, doubles, and triples relate to the log odds of a player hitting 10 or more home runs in a season, in the sample training data? How does a classifier built on this model perform on new data?
+1.) What is the relationship between at-bats and home runs after controlling for doubles, triples, and games played? How well does this model generalize to new data? 
 
-3) How accurately can statistics such as at bats, games played, doubles, and triples predict the number of home runs a player will hit in a season. Which variables contribute most to the prediction and by how much?
+2.) How do at-bats, games played, doubles, and triples relate to the likelihood of a player hitting 10 or more home runs in a season? How well does a classifier built on this relationship perform on unseen data?
+
+3.) How accurately can at-bats, games played, doubles, and triples predict the number of home runs a player will hit in a season, and which of these variables contributes most to that prediction?
+
 
 ## Datasets
 
