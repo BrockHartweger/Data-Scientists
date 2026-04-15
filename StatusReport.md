@@ -5,6 +5,7 @@
 ##### Project Plan: 
 The project plan was written and submitted on March 12 as ProjectPlan.md. This plan was then reviewed and approved with no issues flagged, other than no tag and release. 
 ##### Data Acquisition:
+The primary dataset consists of 5.7 million rows, and is split into 21,000 individual CSV files representing each MLB player’s season. This data spans from 1898 to the present day, encompassing almost every single MLB player that has ever played. A secondary dataset consists of each team's statistics for a given season and encompasses data from 1876 to 2020. Both datasets were cleaned using the pandas library in Python.
 ##### Data Cleaning:
 ##### Data Integration:
 ##### Exploratory Analysis & Visualizations: 
@@ -34,7 +35,7 @@ For the most part, the project has followed the original plan without any major 
 In the exploratory analysis section, one of the gaps we identified in the project plan was that we had not decided on a minimum number of at-bats required for a player to be included in our analysis. Since this was to be determined during our cleaning phase, we decided to filter players to a minimum of 50 at-bats per season to exclude pitchers and part-time players whose low plate appearance totals could potentially skew model results. Also, in the trend charts that were outputted, the year range 1898–2025 was chosen rather than the originally planned 1950–2025, since the full historical data was already available and provided richer context.
 
 ## Challenges and Issues Encountered
-
+One of the issues that came up was dealing with a dataset that consisted of 5.7 million rows, distributed across over 21,000 individual datasets, one per player, which needed to be combined into a single dataset. The file that resulted from this came out to be 565MB. Instead of dealing with one large dataset, it needed to be sliced into numerous datasets to account for the large volume, each about 500,000 rows. This challenge added significant time in the preprocessing stage before any meaningful analysis could begin.
 ## Individual Contribution Summaries
 ##### Brock:
 For this milestone, I was responsible for data acquisition, cleaning, and integration. I obtained a dataset with 5.7 million MLB players' batting seasons spanning from 1878 to 2020. While cleaning the data, I noticed there were 746,000 rows of fully empty data. There were also numerous corrupted column headers that, while filtering out rows that had players with 0 at-bats in a given season. Lastly, with the individual player data, I imputed missing values (NAN) with the value 0 where necessary. Likewise, the team dataset was filtered the same way by filling in missing values, especially in the win/loss and statistical columns. Thus, both datasets were segregated into three historical eras: Early (1898-1950), Mid (1951-1990), and Contemporary (1991-present). Lastly, both datasets were aggregated by the year/date column, enabling analysis across both datasets.
