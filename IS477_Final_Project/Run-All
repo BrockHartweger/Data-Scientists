@@ -48,7 +48,6 @@ print(df_early.shape)
 print(df_mid.shape)
 print(df_contemporary.shape)
 df1 = pd.read_csv("Project/mlb_teams.csv")
-print(df_teams.shape)
 df_teams = df1.dropna(subset=['team_name'])
 df_teams = df1[df1['games_played'] > 0]
 print(df_teams.shape)
