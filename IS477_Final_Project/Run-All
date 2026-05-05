@@ -5,13 +5,16 @@ import glob
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import mean_squared_error, r2_score, classification_report, confusion_matrix, ConfusionMatrixDisplay, roc_auc_score, RocCurveDisplay
 import numpy as np
+
 # Finding/Combine Files:
 files = sorted(glob.glob("all_batting/batting_part_*.csv"))
 df = pd.concat((pd.read_csv(f) for f in files), ignore_index=True)
 print(df.shape)
+
 # 2 Data Cleaning
 df = df.loc[:, ~df.columns.str.startswith('Unnamed')]
 print(df[df['gid'].isnull()].shape)
@@ -68,6 +71,7 @@ df_teams_contemporary = df_teams[df_teams['year'] >= 1991]
 print(df_teams_early.shape)
 print(df_teams_mid.shape)
 print(df_teams_contemporary.shape)
+
 # 3 Data Integration
 df_yearly = df.groupby('year').agg(
     total_ab=('b_ab', 'sum'),
@@ -91,3 +95,147 @@ df_teams_yearly = df_teams.groupby('year').agg(
 
 print(df_yearly.head())
 print(df_teams_yearly.head())
+
+# 4a. Summary Statistics
+# Aggregating to player-season level
+player_season = df.groupby(['id', 'year']).agg(
+    games   = ('gid',  'nunique'),
+    ab      = ('b_ab', 'sum'),
+    hits    = ('b_h',  'sum'),
+    hr      = ('b_hr', 'sum'),
+    doubles = ('b_d', 'sum'),
+    triples = ('b_t', 'sum'),
+    rbi     = ('b_rbi','sum'),
+    walks   = ('b_w',  'sum'),
+    k       = ('b_k',  'sum'),
+    sb      = ('b_sb', 'sum'),
+).reset_index()
+
+player_season = player_season[player_season['ab'] >= 50].copy()
+
+player_season['avg'] = (player_season['hits'] / player_season['ab']).round(3)
+
+print(player_season.shape)
+player_season.head()
+
+# 4b. Visualizations
+# Yearly averages across qualifying players
+yearly_avg = player_season.groupby('year').agg(
+    avg_hr  = ('hr',  'mean'),
+    avg_avg = ('avg', 'mean'),
+    avg_k   = ('k',   'mean'),
+    avg_ab  = ('ab',  'mean'),
+).reset_index()
+
+fig, axes = plt.subplots(3, 1, figsize=(12, 12))
+fig.suptitle('MLB Offensive Trends (1950–2025)', fontsize=16, fontweight='bold')
+
+#Home runs
+axes[0].plot(yearly_avg['year'], yearly_avg['avg_hr'], color='steelblue')
+axes[0].set_title('Average HR per Player-Season')
+axes[0].set_ylabel('Home Runs')
+axes[0].legend()
+
+#Batting average
+axes[1].plot(yearly_avg['year'], yearly_avg['avg_avg'], color='green')
+axes[1].set_title('Average Batting Average per Player-Season')
+axes[1].set_ylabel('Batting Average')
+axes[1].yaxis.set_major_formatter(ticker.FormatStrFormatter('%.3f'))
+
+#Strikeouts
+axes[2].plot(yearly_avg['year'], yearly_avg['avg_k'], color='crimson')
+axes[2].set_title('Average Strikeouts per Player-Season')
+axes[2].set_ylabel('Strikeouts')
+axes[2].set_xlabel('Year')
+
+plt.tight_layout()
+plt.savefig('offensive_trends.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+# Linear Regression Model
+features = ['ab', 'games', 'doubles', 'triples']
+target   = 'hr'
+
+model_df = player_season[features + [target]].dropna()
+
+X = model_df[features]
+y = model_df[target]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+
+y_pred = lr.predict(X_test)
+
+print(f"R²  (train): {lr.score(X_train, y_train):.4f}")
+print(f"R²  (test) : {r2_score(y_test, y_pred):.4f}")
+print(f"RMSE (test): {np.sqrt(mean_squared_error(y_test, y_pred)):.4f}")
+print()
+print("Coefficients:")
+for feat, coef in zip(features, lr.coef_):
+    print(f"  {feat:>10}: {coef:.4f}")
+print(f"  {'intercept':>10}: {lr.intercept_:.4f}")
+
+#  Visualization of Predictd vs. Actual Home Runs
+fig, ax = plt.subplots(figsize=(7, 6))
+ax.scatter(y_test, y_pred, alpha=0.3, s=10, color='steelblue')
+ax.plot([y_test.min(), y_test.max()],
+        [y_test.min(), y_test.max()], 'r--', linewidth=1.5)
+ax.set_xlabel('Actual HR')
+ax.set_ylabel('Predicted HR')
+ax.set_title('Linear Regression: Predicted vs Actual HR')
+plt.tight_layout()
+plt.savefig('lr_pred_vs_actual.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+# 6. Classification Model
+model2_df = player_season[player_season['ab'] >= 100].copy()
+
+model2_df['hit_10hr'] = (model2_df['hr'] >= 10).astype(int)
+
+class_balance = model2_df['hit_10hr'].value_counts()
+positive_rate = model2_df['hit_10hr'].mean()
+
+print("Class Balance:", class_balance)
+print("Positive Rate:", positive_rate)
+
+features = ['ab', 'hits', 'doubles', 'triples', 'rbi', 'walks', 'k', 'sb']
+
+classification_df = model2_df[features + ['hit_10hr']].dropna()
+
+x = classification_df[features]
+y = classification_df['hit_10hr']
+
+x_train, x_test, y_train, y_test = train_test_split(
+    x, y, test_size=0.2, random_state=42, stratify=y
+)
+
+train_size = x_train.shape[0]
+test_size = x_test.shape[0]
+
+print("Training set size:", train_size)
+print("Testing set size:", test_size)
+
+rf = RandomForestClassifier(
+    n_estimators=200, 
+    max_depth=10,
+    random_state=42,
+    class_weight='balanced',
+    n_jobs=-1)
+
+rf.fit(x_train, y_train)
+
+# Model Performance Metrics
+y_pred = rf.predict(x_test)
+y_proba = rf.predict_proba(x_test)[:, 1]
+
+print(f"Random Forest Classifier Performance:")
+
+class_report = classification_report(y_test, y_pred, target_names=['<10 HR', '≥10 HR'])
+print("Classification Report:", class_report)
+
+roc_auc = roc_auc_score(y_test, y_proba)
+print("Roc AUC Score:", roc_auc)
