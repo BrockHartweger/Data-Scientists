@@ -19,3 +19,8 @@ The second dataset is sourced from Lahman's Baseball Database, a widely cited re
 
 These two datasets will be integrated using team abbreviation and season year as shared keys, connecting individual player batting statistics (aggregated to the team-season level) with team outcomes such as wins, losses, and runs scored. Analysis will focus on 1950–2025, where data completeness is highest.
 # Data Quality:
+# Data Cleaning (97/1000 Words)
+The batting data required significant preprocessing before data can be integrated. There were 764,000 rows of empty row data that needed to be removed, as well as faulty header/column variables, reducing rows to four million. Missing statistical values were imputed with the value 0 where necessary. The last preprocessing step needed for the batting was linking 21,000 individual batting CSVs into one. The team dataset required almost no cleaning besides some missing values needing to be filled with 0. Both datasets were then validated to make sure there were no missing values or faulty data being faulty.
+# Findings (0/500 Words)
+# Future Work (0/500 Words)
+# Challenges
