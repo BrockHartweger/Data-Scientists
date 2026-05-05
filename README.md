@@ -10,3 +10,4 @@ Our plan is to clean and organize a dataset based on every MLB player’s season
 2.) How do at-bats, games played, doubles, and triples relate to the likelihood of a player hitting 10 or more home runs in a season? How well does a classifier built on this relationship perform on unseen data?
 
 3.) How accurately can at-bats, games played, doubles, and triples predict the number of home runs a player will hit in a season, and which of these variables contributes most to that prediction?
+# Data Profile:
