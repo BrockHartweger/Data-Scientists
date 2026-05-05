@@ -23,4 +23,7 @@ These two datasets will be integrated using team abbreviation and season year as
 The batting data required significant preprocessing before data can be integrated. There were 764,000 rows of empty row data that needed to be removed, as well as faulty header/column variables, reducing rows to four million. Missing statistical values were imputed with the value 0 where necessary. The last preprocessing step needed for the batting was linking 21,000 individual batting CSVs into one. The team dataset required almost no cleaning besides some missing values needing to be filled with 0. Both datasets were then validated to make sure there were no missing values or faulty data being faulty.
 # Findings (0/500 Words)
 # Future Work (0/500 Words)
-# Challenges
+# Challenges (87/500 Words)
+One of the issues that came up was dealing with a dataset that consisted of 5.7 million rows, distributed across over 21,000 individual datasets, one per player, which needed to be combined into a single dataset. The file that resulted from this came out to be 565MB. Instead of dealing with one large dataset, it needed to be sliced into numerous datasets to account for the large volume, each about 500,000 rows. This challenge added significant time in the preprocessing stage before any meaningful analysis could begin.
+# Reproducing Steps
+#Refrences
