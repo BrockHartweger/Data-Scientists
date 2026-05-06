@@ -13,19 +13,25 @@ The motivation for this project stems from our fascination with sports analytics
 
 3.) How accurately can at-bats, games played, doubles, and triples predict the number of home runs a player will hit in a season, and which of these variables contributes most to that prediction?
 
-# Data Profile: (224 Words / 2000)
+# Data Profile: (667 Words / 2000)
 # Retrosheet Baseball CSV Files
+
 
 (https://www.retrosheet.org/downloads/othercsvs.html)
 
+
 Retrosheet Baseball CSV Files is a non-profit organization that compiles historical MLB game data. From their CSV download portal, we use game-level batting data (batting_part_*.csv), which contains batting statistics for every player in each game from 1898–2025. The Retrosheet data used in this project is structured at the game level, where each row represents an individual player’s batting performance in a single game. Through aggregation, the dataset is merged to be at the season level, meaning each row consists of a player's individual season later on in the project. This is for one to scale down the dataset as a whole and perform analysis on season-level analysis of player performance and long-term trends. The raw dataset contains approximately 5.75 million rows of game-level data with 89 observational variables spanning the years from 1898 to 2025. The dataset was originally distributed across numerous CSV files, which were then merged into a single CSV dataset for convenience. The merged structure allows for a seamless integration of all historical records and allows for season-level analysis and integration.
 ​
+
 The dataset contains an accurate and almost complete account of all MLB records across its history. There are numerous important variables through offensive statistics such as at-bats (b_ab), hits (b_h), home runs (b_hr), doubles (b_d), triples (b_t), runs batted in (b_rbi), walks (b_w), strikeouts (b_k), and stolen bases (b_sb). These variables give a wide scope of the offensive performance of a player during their tenure in the MLB. In addition to offensive statistics, there are many identifiable variables such as player ID, game ID (gid), team abbreviation, opponent team, and game date. These identifiers allow our group to track performance across separate seasons, and allows for the ability to aggregate and merge the data. Numerous variables were created through our process, such as season, year, and season homeruns. This allows our group to identify long-term analysis and trends within the game. The raw dataset contains numerous incomplete or non-informative data points, such as a player recording zero at-bats in a season. Since we are measuring offensive efficiency, our group chose to remove such rows from the data.
 ​
+
 The Retrosheet game-level batting data is stored in the project repository under the directory /all_batting/. The dataset is then split across numerous CSV files in the format called batting_part_*.csv. The star represents the number of the dataset, for example,/batting_part_00.csv/ is the first csv of the twelve total. These files were combined during preprocessing in the project to form a single unified dataset for analysis of long-term performance trends.
 ​
+
 These files are freely available for non-commercial use under Retrosheet's data license, meaning the data is allowed for educational use and academic research. The dataset consists of non-personal or secret information that might be privatized by such players. All records/stats pertain to public sporting events, thus privacy concerns and legal constraints are non-existent. The only ethical concern for this project is pertaining to the researchers providing accurate and appropriate analysis of a historical dataset. This includes proper cleaning methods, defining used variables, and accurate and permissible conclusions.
 ​
+
 The dataset relates to all three of the research questions and is an essential backbone for each of them. This data is used to provide detailed game-level batting statistics that can be aggregated into player-season metrics to allow for long-term analysis. This dataset relates to the first research question, enabling a regression framework that examines the relationship between at-bats, doubles, triples, and other offensive variables in predicting home runs. It relates to the second research question by allowing the classification of a binary classification target, which would be +10 home runs in a season. This allows our group to research the likelihood of a player reaching such a threshold. For the third and last research question, the dataset allows our group to see which variables contributed the most in the estimation of total home runs.  
 
 # Data Quality:
