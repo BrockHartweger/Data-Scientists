@@ -1,5 +1,7 @@
-# IS 477 Final Project Report (How has the Game of Baseball Evolved?)
+# IS 477 Final Project Report: Predicting MLB Home Run Production Across a Century of Baseball
 By Aadhya Mavani & Brock Hartweger
+
+
 # Summary/Research Questions:
 Our project aims to analyze how Major League Baseball has evolved over time using a historical baseball dataset. Using datasets on each player’s individual performance during a season, our group can study long-term trends in offensive production along with how player statistics have progressed throughout the decades. Coupling this with a dataset that consists of every MLB team’s season, we can measure an individual player's statistics versus a team’s performance. By examining statistics such as hits, home runs, batting averages, and other key metrics, we can research how player development and the style of the game have molded into the game we know today. 
 
