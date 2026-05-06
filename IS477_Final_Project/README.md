@@ -57,9 +57,7 @@ These files are freely available for non-commercial use under Lahman’s data li
 ​
 The dataset relates to all three of the research questions. This data is used to provide detailed season-level batting statistics for each of the questions to be merged with Retrosheet’s data. This dataset relates to the first research question, enabling a regression framework that examines the relationship between at-bats, doubles, triples, and other offensive variables in predicting home runs for each team. It relates to the second research question. This improves the model’s ability to distinguish between players who cross the threshold and those who do not by accounting for team context. This allows our group to research the likelihood of a player reaching such a threshold. For the third and last research question, the dataset allows our group to see which variables contributed the most in the estimation of total home runs.
 
-# Data Quality:
-
-# Data Quality Assessment (Retrosheet + Lahman MLB Datasets)
+# Data Quality Assessment (Retrosheet + Lahman MLB Datasets):
 
 
 The overall data quality of both the Retrosheet and Lahman Baseball datasets is high in terms of completeness, historical coverage, and consistency for the scope of this project. However, there are some limitations and missing components in the data that require preprocessing and cleaning before actual use. This is mainly due to the lengthy timeline of this project, and the statistics were recorded throughout the eras.
