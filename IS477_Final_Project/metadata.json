@@ -1,0 +1,87 @@
+{
+    "@context": "https://schema.org/",
+    "@type": "Dataset",
+    "name": "IS 477 Final Project Report: Predicting MLB Home Run Production Across a Century of Baseball",
+    "description": "An integrated dataset of MLB player-level batting statistics and team-level statistics from 1898 to 2020 which is used to analyze historical league-wide trends and build predictive models for home run production. This analyis includes a linear regression model predicting total home runs per season and a Random Forest classifier that predicts whether a player will hit 10 or more home runs in a season.",
+    "url": "https://github.com/BrockHartweger/Data-Scientists",
+    "identifier": "https://github.com/BrockHartweger/Data-Scientists",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "isAccessibleForFree": true,
+    "dateCreated": "2026-03-15",
+    "dateModified": "2026-05-06",
+    "datePublished": "2026-05-06",
+    "inLanguage": "en",
+    "keywords": [
+      "MLB",
+      "baseball",
+      "batting statistics",
+      "home runs",
+      "sabermetrics",
+      "machine learning",
+      "random forest",
+      "linear regression",
+      "sports analytics",
+      "historical data"
+    ],
+    "creator": [
+      {
+        "@type": "Person",
+        "name": "Aadhya Mavani"
+      },
+      {
+        "@type": "Person",
+        "name": "Brock Hartweger"
+      }
+    ],
+    "publisher": {
+      "@type": "Organization",
+      "name": "University of Illinois Urbana-Champaign"
+    },
+    "distribution": [
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "text/csv",
+        "contentUrl": "https://uofi.box.com/s/k16jpnbyp6qfk1zg6irve0dsunedszkh",
+        "name": "MLB batting and player data"
+      },
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "application/x-ipynb+json",
+        "contentUrl": "https://github.com/BrockHartweger/Data-Scientists/blob/main/IS477_Final_Project/FinalProject_JupyterNotebook.ipynb",
+        "name": "Jupyter Notebook with full analysis and models"
+      }
+    ],
+    "measurementTechnique": [
+      "Linear Regression",
+      "Random Forest Classification",
+      "Exploratory Data Analysis",
+      "Visualizations"
+    ],
+    "variableMeasured": [
+      "Home runs (b_hr)",
+      "Batting average (b_h / b_ab)",
+      "RBIs (b_rbi)",
+      "Walks (b_w)",
+      "Strikeouts (b_k)",
+      "Stolen bases (b_sb)",
+      "League attendance",
+      "League fielding errors"
+    ],
+    "temporalCoverage": "1898/2020",
+    "spatialCoverage": {
+      "@type": "Place",
+      "name": "United States"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Major League Baseball"
+      },
+      {
+        "@type": "Thing",
+        "name": "Predictive Modeling"
+      }
+    ]
+  }
+  
+  
