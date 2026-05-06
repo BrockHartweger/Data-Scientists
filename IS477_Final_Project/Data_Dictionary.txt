@@ -1,0 +1,62 @@
+Data Dictionary:
+# Game / Identifier Variables
+gid – [object/int64] unique game identifier (often includes team + date encoding).
+ id – [object/int64] player or event identifier depending on dataset context.
+ team – [object] team abbreviation for the player/event.
+ opp – [object] opposing team abbreviation.
+ date – [int64] game date in YYYYMMDD format.
+ number – [int64] game number within the season or series.
+ site – [object] ballpark or stadium code where the game was played.
+ vishome – [object] indicates whether a team is visiting (v) or home (h).
+ gametype – [object] type of game (e.g., regular season, postseason).
+# Batting Order / Role Variables
+b_lp – [int64] lineup position or batting position appearance count.
+ b_seq – [int64] sequence of plate appearances in game.
+ dh – [int64] designated hitter indicator (1 = yes, 0 = no).
+ ph – [int64] pinch hitter indicator.
+ pr – [int64] pinch runner indicator.
+# Plate Appearance / Batting Outcome Stats
+b_pa – [int64] plate appearances.
+ b_ab – [int64] at-bats.
+ b_r – [int64] runs scored.
+ b_h – [int64] hits.
+ b_d – [int64] doubles.
+ b_t – [int64] triples.
+ b_hr – [int64] home runs.
+ b_rbi – [int64] runs batted in.
+ b_sh – [int64] sacrifice hits (bunts).
+ b_sf – [int64] sacrifice flies.
+ b_hbp – [int64] hit by pitch.
+ b_w – [int64] walks (bases on balls).
+ b_iw – [int64] intentional walks.
+ b_k – [int64] strikeouts.
+ b_sb – [int64] stolen bases.
+ b_cs – [int64] caught stealing.
+ b_gdp – [int64] grounded into double play.
+ b_xi – [int64] reached base on interference or similar scoring event.
+ b_roe – [int64] reached on error.
+# Game Outcome / Context Variables
+win – [int64] indicator if player’s team won (1 = win, 0 = no).
+ loss – [int64] indicator if team lost.
+ tie – [int64] indicator of tie game (rare in MLB modern data).
+ box – [object/int64] box score availability or identifier flag.
+ pbp – [object/int64] play-by-play data availability or identifier flag.
+ eject – [int64] whether player was ejected (1 = yes, 0 = no).
+ value – [float64] computed performance or contribution metric (dataset-specific scoring value).
+# Team / Game Encoding Variables
+BOS194108061 – [object] encoded game ID (team + date format example).
+ sturj101 – [object] player ID (MLBAM-style identifier).
+ NYA – [object] team abbreviation (example instance).
+ ARI201208110 – [object] encoded game ID (Arizona game example).
+ wheer001 – [object] player ID (MLBAM-style identifier).
+# League / Division / Standings Variables
+division_id – [int64] identifier for division.
+ year – [int64] season year.
+ games – [int64] total games played (team or player-season level depending on aggregation).
+ ab – [int64] at-bats (season-level aggregate).
+ hits – [int64] total hits (season-level).
+ hr – [int64] home runs (season-level).
+ doubles – [int64] doubles.
+ triples – [int64] triples.
+ rbi – [int64] runs batted in.
+ 
