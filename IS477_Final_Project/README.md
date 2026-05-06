@@ -1,6 +1,6 @@
 # IS 477 Final Project Report (How has the Game of Baseball Evolved?)
 By Aadhya Mavani & Brock Hartweger
-# Summary/Research Questions: (465 Words / 500-600)
+# Summary/Research Questions:
 Our project aims to analyze how Major League Baseball has evolved over time using a historical baseball dataset. Using datasets on each player’s individual performance during a season, our group can study long-term trends in offensive production along with how player statistics have progressed throughout the decades. Coupling this with a dataset that consists of every MLB team’s season, we can measure an individual player's statistics versus a team’s performance. By examining statistics such as hits, home runs, batting averages, and other key metrics, we can research how player development and the style of the game have molded into the game we know today. 
 
 Our plan is to clean and organize a dataset based on every MLB player’s season. After prepping the dataset, our group will analyze key performance statistics through variables such as home runs, batting average, home run percentage, and other variables, identifying trends throughout the decades. Using these variables, we will create summary statistics, visualizations, and a regression model to predict the future of the game and what it would look like for the next generation of players. Overall, these models will help our group explore many different possibilities and give us data-driven insights for the next decade. 
@@ -13,8 +13,8 @@ The motivation for this project stems from our fascination with sports analytics
 
 3.) How accurately can at-bats, games played, doubles, and triples predict the number of home runs a player will hit in a season, and which of these variables contributes most to that prediction?
 
-# Data Profile: (667 Words / 2000)
-# Retrosheet Baseball CSV Files
+# Data Profile:
+## Retrosheet Baseball CSV Files
 
 
 (https://www.retrosheet.org/downloads/othercsvs.html)
@@ -32,7 +32,27 @@ The Retrosheet game-level batting data is stored in the project repository under
 These files are freely available for non-commercial use under Retrosheet's data license, meaning the data is allowed for educational use and academic research. The dataset consists of non-personal or secret information that might be privatized by such players. All records/stats pertain to public sporting events, thus privacy concerns and legal constraints are non-existent. The only ethical concern for this project is pertaining to the researchers providing accurate and appropriate analysis of a historical dataset. This includes proper cleaning methods, defining used variables, and accurate and permissible conclusions.
 ​
 
-The dataset relates to all three of the research questions and is an essential backbone for each of them. This data is used to provide detailed game-level batting statistics that can be aggregated into player-season metrics to allow for long-term analysis. This dataset relates to the first research question, enabling a regression framework that examines the relationship between at-bats, doubles, triples, and other offensive variables in predicting home runs. It relates to the second research question by allowing the classification of a binary classification target, which would be +10 home runs in a season. This allows our group to research the likelihood of a player reaching such a threshold. For the third and last research question, the dataset allows our group to see which variables contributed the most in the estimation of total home runs.  
+The dataset relates to all three of the research questions and is an essential backbone for each of them. This data is used to provide detailed game-level batting statistics that can be aggregated into player-season metrics to allow for long-term analysis. This dataset relates to the first research question, enabling a regression framework that examines the relationship between at-bats, doubles, triples, and other offensive variables in predicting home runs. It relates to the second research question by allowing the classification of a binary classification target, which would be +10 home runs in a season. This allows our group to research the likelihood of a player reaching such a threshold. For the third and last research question, the dataset allows our group to see which variables contributed the most in the estimation of total home runs. 
+
+## Lahman Baseball Database (OpenIntro Version)
+
+
+(https://www.openintro.org/data/index.php?data=mlb_teams)
+
+
+The Lahman Baseball Database (accessed through OpenIntro) is a publicly available dataset that compiles historical Major League Baseball team statistics. From this source, this project uses the MLB teams dataset,which contains season-level performance data for professional baseball teams. From their CSV download portal, we use the season-level data (mlb_teams.csv), which contains statistics for every team in each game from 1876-2020. The Lahman Baseball Dataset used in this project is structured at the season level, where each row represents an individual team’s batting performance in a single season. No merging was needed to be made at the individual game-level since all data is already at season-level. The dataset contains approximately 2,784 rows and 41 variables spanning the entire history of Major League Baseball. Unlike the Retrosheet Dataset spanning across multiple CSV files, Lahman’s dataset is a singular dataset that allows for convenience and seamless integration.
+
+
+The dataset contains an accurate and almost complete account of all MLB records across its history. There are numerous important variables through offensive statistics such as at-bats, hits, home runs, doubles, triples, walks, strikeouts, stolen bases, and runs scored. This dataset also includes pitching and fielding statistics; however, our group did not touch or use these statistics in our project. In addition to offensive statistics, there are many identifiable variables such as team name, year, league id, wins, and loses for the given season. These identifiers allow our group to track performance across separate seasons, and allows for the ability to aggregate and merge the data. Missing data is prevalent in this dataset, especially pertaining to records from before the year 1920.
+
+
+The Lahman game-level batting data is stored in the project repository under the directory /mlb_teams.csv/. There is just a singular CSV, which is easy and convenient compared to Retrosheet.
+
+
+These files are freely available for non-commercial use under Lahman’s data license, meaning the data is allowed for educational use and academic research. The dataset consists of non-personal or secret information that might be privatized by such teams. All records/stats pertain to public sporting events, thus privacy concerns and legal constraints are non-existent. The only ethical concern for this project is pertaining to the researchers providing accurate and appropriate analysis of a historical dataset. This includes proper cleaning methods, defining used variables, and accurate and permissible conclusions.
+
+​
+The dataset relates to all three of the research questions. This data is used to provide detailed season-level batting statistics for each of the questions to be merged with Retrosheet’s data. This dataset relates to the first research question, enabling a regression framework that examines the relationship between at-bats, doubles, triples, and other offensive variables in predicting home runs for each team. It relates to the second research question. This improves the model’s ability to distinguish between players who cross the threshold and those who do not by accounting for team context. This allows our group to research the likelihood of a player reaching such a threshold. For the third and last research question, the dataset allows our group to see which variables contributed the most in the estimation of total home runs.
 
 # Data Quality:
 # Data Cleaning (97/1000 Words)
