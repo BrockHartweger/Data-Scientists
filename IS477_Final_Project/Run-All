@@ -1,4 +1,4 @@
-# 1 Data Acquisition
+# 1. Data Acquisition
 # Imputs
 import pandas as pd
 import glob
@@ -15,7 +15,7 @@ files = sorted(glob.glob("all_batting/batting_part_*.csv"))
 df = pd.concat((pd.read_csv(f) for f in files), ignore_index=True)
 print(df.shape)
 
-# 2 Data Cleaning
+# 2. Data Cleaning
 df = df.loc[:, ~df.columns.str.startswith('Unnamed')]
 print(df[df['gid'].isnull()].shape)
 print(df[df['gid'].isnull()].head())
@@ -72,7 +72,7 @@ print(df_teams_early.shape)
 print(df_teams_mid.shape)
 print(df_teams_contemporary.shape)
 
-# 3 Data Integration
+# 3. Data Integration
 df_yearly = df.groupby('year').agg(
     total_ab=('b_ab', 'sum'),
     total_hits=('b_h', 'sum'),
@@ -95,9 +95,12 @@ df_teams_yearly = df_teams.groupby('year').agg(
 
 print(df_yearly.head())
 print(df_teams_yearly.head())
+df_combined = pd.merge(df_yearly, df_teams_yearly, on='year', how='inner') 
+print(df_combined.shape) 
+print(df_combined.head())
 
 # 4a. Summary Statistics
-# Aggregating to player-season level
+# Aggregating to Player Season Level
 player_season = df.groupby(['id', 'year']).agg(
     games   = ('gid',  'nunique'),
     ab      = ('b_ab', 'sum'),
@@ -115,45 +118,63 @@ player_season = player_season[player_season['ab'] >= 50].copy()
 
 player_season['avg'] = (player_season['hits'] / player_season['ab']).round(3)
 
+combined_cols = [
+    'year',
+    'total_wins',    
+    'total_errors',
+    'total_attendance', 
+    'num_teams',     
+]
+player_season = player_season.merge(
+    df_combined[combined_cols],
+    on='year',
+    how='left'
+)
+
 print(player_season.shape)
+print('Columns:', player_season.columns.tolist())
 player_season.head()
 
+print('League-level yearly summary (first 10 rows):')
+print(df_combined[[
+    'year',
+    'total_ab', 'total_hits', 'total_hr_x',
+    'total_runs', 'total_wins', 'total_errors',
+    'total_attendance', 'num_teams'
+]].head(10).to_string(index=False))
+
+df_combined['league_avg'] = (df_combined['total_hits'] / df_combined['total_ab'])
+print('\nLeague batting average range:')
+print(f"  Min year: {df_combined['year'].min()}  Max year: {df_combined['year'].max()}")
+print(f"  Avg BA range: {df_combined['league_avg'].min():.3f} – {df_combined['league_avg'].max()}")
+
 # 4b. Visualizations
-# Yearly averages across qualifying players
-yearly_avg = player_season.groupby('year').agg(
-    avg_hr  = ('hr',  'mean'),
-    avg_avg = ('avg', 'mean'),
-    avg_k   = ('k',   'mean'),
-    avg_ab  = ('ab',  'mean'),
-).reset_index()
-
 fig, axes = plt.subplots(3, 1, figsize=(12, 12))
-fig.suptitle('MLB Offensive Trends (1950–2025)', fontsize=16, fontweight='bold')
+fig.suptitle('MLB League-Wide Trends', fontsize=15, fontweight='bold')
 
-#Home runs
-axes[0].plot(yearly_avg['year'], yearly_avg['avg_hr'], color='steelblue')
-axes[0].set_title('Average HR per Player-Season')
-axes[0].set_ylabel('Home Runs')
-axes[0].legend()
+# League batting average
+axes[0].plot(df_combined['year'], df_combined['league_avg'], color='steelblue')
+axes[0].set_title('League Batting Average (per year)')
+axes[0].set_ylabel('Batting Average')
+axes[0].yaxis.set_major_formatter(ticker.FormatStrFormatter('%.3f'))
 
-#Batting average
-axes[1].plot(yearly_avg['year'], yearly_avg['avg_avg'], color='green')
-axes[1].set_title('Average Batting Average per Player-Season')
-axes[1].set_ylabel('Batting Average')
-axes[1].yaxis.set_major_formatter(ticker.FormatStrFormatter('%.3f'))
+# Total home attendance
+axes[1].plot(df_combined['year'], df_combined['total_attendance'] / 1_000_000, color='green')
+axes[1].set_title('Total Home Attendance (millions)')
+axes[1].set_ylabel('Attendance (M)')
 
-#Strikeouts
-axes[2].plot(yearly_avg['year'], yearly_avg['avg_k'], color='crimson')
-axes[2].set_title('Average Strikeouts per Player-Season')
-axes[2].set_ylabel('Strikeouts')
+# Total errors (league-wide)
+axes[2].plot(df_combined['year'], df_combined['total_errors'], color='crimson')
+axes[2].set_title('Total League-Wide Fielding Errors')
+axes[2].set_ylabel('Errors')
 axes[2].set_xlabel('Year')
 
 plt.tight_layout()
-plt.savefig('offensive_trends.png', dpi=150, bbox_inches='tight')
+plt.savefig('league_trends_integrated.png', dpi=150, bbox_inches='tight')
 plt.show()
 
-# Linear Regression Model
-features = ['ab', 'games', 'doubles', 'triples']
+# 5. Linear Regression Model
+features = ['ab', 'games', 'hits', 'doubles', 'triples', 'rbi', 'walks', 'k', 'sb', 'num_teams', 'total_errors', 'total_attendance']
 target   = 'hr'
 
 model_df = player_season[features + [target]].dropna()
@@ -179,7 +200,7 @@ for feat, coef in zip(features, lr.coef_):
     print(f"  {feat:>10}: {coef:.4f}")
 print(f"  {'intercept':>10}: {lr.intercept_:.4f}")
 
-#  Visualization of Predictd vs. Actual Home Runs
+# Visualization of Predicted vs. Actual Home Runs
 fig, ax = plt.subplots(figsize=(7, 6))
 ax.scatter(y_test, y_pred, alpha=0.3, s=10, color='steelblue')
 ax.plot([y_test.min(), y_test.max()],
@@ -201,8 +222,7 @@ positive_rate = model2_df['hit_10hr'].mean()
 
 print("Class Balance:", class_balance)
 print("Positive Rate:", positive_rate)
-
-features = ['ab', 'hits', 'doubles', 'triples', 'rbi', 'walks', 'k', 'sb']
+features = ['ab', 'hits', 'doubles', 'triples', 'rbi', 'walks', 'k', 'sb', 'num_teams', 'total_errors', 'total_attendance']
 
 classification_df = model2_df[features + ['hit_10hr']].dropna()
 
@@ -218,7 +238,6 @@ test_size = x_test.shape[0]
 
 print("Training set size:", train_size)
 print("Testing set size:", test_size)
-
 rf = RandomForestClassifier(
     n_estimators=200, 
     max_depth=10,
@@ -229,6 +248,7 @@ rf = RandomForestClassifier(
 rf.fit(x_train, y_train)
 
 # Model Performance Metrics
+
 y_pred = rf.predict(x_test)
 y_proba = rf.predict_proba(x_test)[:, 1]
 
