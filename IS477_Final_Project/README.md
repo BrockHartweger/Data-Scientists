@@ -89,6 +89,26 @@ Also, we saw that the Random Forest classification model had a class imbalance i
 
 
 ## Reproducing Steps
-https://uofi.box.com/s/k16jpnbyp6qfk1zg6irve0dsunedszkh
 
 ## References
+
+“Lahman Baseball Database (OpenIntro Version).” OpenIntro, https://www.openintro.org/data/index.php?data=mlb_teams
+. Accessed 6 May 2026.
+
+Matplotlib Development Team. Matplotlib: Visualization with Python. https://matplotlib.org
+. Accessed 6 May 2026.
+
+NumPy Developers. NumPy: The Fundamental Package for Scientific Computing in Python. https://numpy.org
+. Accessed 6 May 2026.
+
+Pandas Development Team. pandas: Powerful Data Analysis Toolkit. https://pandas.pydata.org
+. Accessed 6 May 2026.
+
+Retrosheet. Retrosheet Baseball Data. https://www.retrosheet.org
+. Accessed 6 May 2026.
+
+scikit-learn Developers. scikit-learn: Machine Learning in Python. https://scikit-learn.org
+. Accessed 6 May 2026.
+
+University of Illinois Urbana-Champaign Box Repository. MLB Project Data and Code Files. https://uofi.box.com/s/k16jpnbyp6qfk1zg6irve0dsunedszkh
+. Accessed 6 May 2026.
