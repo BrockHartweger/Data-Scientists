@@ -107,14 +107,13 @@ Also, we saw that the Random Forest classification model had a class imbalance i
 1.) Clone the repository on GitHub
 
 2.) Install all dependencies: This would include having one of the latest versions of python and the following libraries: pandas, numpy, matplotlib, scikit-learn
-
+            
 3.) Download the data: The datasets are too large to host on GitHub, so they are stored on Box and accessible via the following link: https://uofi.box.com/s/k16jpnbyp6qfk1zg6irve0dsunedszkh 
 
-3a.) To improve reproducibility, the dataset is downloaded programmatically at the beginning of the Run-All script, eliminating the need for manual download.
+4.) Place a new DS Code blank file in the newly downloaded 'Project' folder
 
-4.) Create new DS Code file and put it into the new "Project" folder downloaded from Box
+5.) Open and copy & paste in the the Run-All file: This will execute the full end-to-end workflow after clicking the run-all run through
 
-5.) Open and run the Run-All file: This will execute the full end-to-end workflow
 
 
 ## References
