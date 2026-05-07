@@ -110,7 +110,7 @@ Also, we saw that the Random Forest classification model had a class imbalance i
 
 3.) Download the data: The datasets are too large to host on GitHub, so they are stored on Box and accessible via the following link: https://uofi.box.com/s/k16jpnbyp6qfk1zg6irve0dsunedszkh 
 
-3a.) *discuss the automatic method where the lines of code auto download the data and stuff*
+3a.) To improve reproducibility, the dataset is downloaded programmatically at the beginning of the Run-All script, eliminating the need for manual download.
 
 4.) Create new DS Code file and put it into the new "Project" folder downloaded from Box
 
