@@ -110,7 +110,7 @@ Also, we saw that the Random Forest classification model had a class imbalance i
             
 3.) Download the data: The datasets are too large to host on GitHub, so they are stored on Box and accessible via the following link: https://uofi.box.com/s/k16jpnbyp6qfk1zg6irve0dsunedszkh 
 
-4.) Place a new DS Code blank file in the newly downloaded 'Project' folder
+4.) Place a new Visual Studio Code blank file in the newly downloaded 'Project' folder
 
 5.) Open and copy & paste in the the Run-All file: This will execute the full end-to-end workflow after clicking the run-all run through
 
