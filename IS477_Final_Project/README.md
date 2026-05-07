@@ -104,6 +104,16 @@ Also, we saw that the Random Forest classification model had a class imbalance i
 
 ## Reproducing Steps
 
+1.) Clone the repository on GitHub
+
+2.) Install all dependencies: This would include having one of the latest versions of python and the following libraries: pandas, numpy, matplotlib, scikit-learn
+
+3.) Download the data: The datasets are too large to host on GitHub, so they are stored on Box and accessible via the following link: https://uofi.box.com/s/k16jpnbyp6qfk1zg6irve0dsunedszkh 
+
+3a.) *discuss the automatic method where the lines of code auto download the data and stuff*
+         
+4.) Open and run the Run-All file: This will execute the full end-to-end workflow
+
 ## References
 
 “Lahman Baseball Database (OpenIntro Version).” OpenIntro, https://www.openintro.org/data/index.php?data=mlb_teams
