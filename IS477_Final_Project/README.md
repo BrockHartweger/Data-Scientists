@@ -112,7 +112,9 @@ Also, we saw that the Random Forest classification model had a class imbalance i
 
 3a.) *discuss the automatic method where the lines of code auto download the data and stuff*
 
-4.) Open and run the Run-All file: This will execute the full end-to-end workflow
+4.) Create new DS Code file and put it into the new "Project" folder downloaded from Box
+
+5.) Open and run the Run-All file: This will execute the full end-to-end workflow
 
 
 ## References
